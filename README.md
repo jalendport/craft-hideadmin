@@ -5,7 +5,7 @@
 This plugin hides admin users from non-admin users.
 
 - Admin users aren't included in the users table for non-admin users
-- Non-admin users can't view or edit admin users
+- Non-admin users cannot view or edit admin users
 
 ## Requirements
 
