@@ -1,0 +1,40 @@
+{
+    "name": "lukeyouell/craft-hideadmin",
+    "description": "Hide admin users from non-admin users",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "hide admin"
+    ],
+    "support": {
+        "docs": "https://github.com/lukeyouell/craft-hideadmin/blob/master/README.md",
+        "issues": "https://github.com/lukeyouell/craft-hideadmin/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luke Youell",
+            "homepage": "https://github.com/lukeyouell"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "lukeyouell\\hideadmin\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Hide Admin",
+        "handle": "hide-admin",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/lukeyouell/craft-hideadmin/master/CHANGELOG.md",
+        "class": "lukeyouell\\hideadmin\\HideAdmin"
+    }
+}
