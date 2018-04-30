@@ -2,8 +2,10 @@
 
 # Hide Admin plugin for Craft CMS 3
 
-Hide admin accounts from non-admin accounts
+This plugin hides admin users from non-admin users.
 
+- Admin users aren't included in the users table for non-admin users
+- Non-admin users can't view or edit admin users
 
 ## Requirements
 
