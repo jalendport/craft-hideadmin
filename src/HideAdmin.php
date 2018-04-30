@@ -22,10 +22,10 @@ use yii\base\Event;
 use yii\web\ForbiddenHttpException;
 
 /**
- * Class UserManager
+ * Class HideAdmin
  *
  * @author    Luke Youell
- * @package   UserManager
+ * @package   HideAdmin
  * @since     1.0.0
  *
  */
