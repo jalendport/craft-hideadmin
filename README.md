@@ -11,7 +11,7 @@ Hide Admin hides admin users from non-admin users, which is useful if you want t
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0 or later.
+This plugin requires Craft CMS 3.1.0 or later.
 
 ## Installation
 
