@@ -1,5 +1,5 @@
 {
-    "name": "lukeyouell/craft-hideadmin",
+    "name": "jalendport/craft-hideadmin",
     "description": "Hide admin users from non-admin users",
     "type": "craft-plugin",
     "version": "1.0.1",
@@ -11,11 +11,15 @@
         "hide admin"
     ],
     "support": {
-        "docs": "https://github.com/lukeyouell/craft-hideadmin/blob/master/README.md",
-        "issues": "https://github.com/lukeyouell/craft-hideadmin/issues"
+        "docs": "https://github.com/jalendport/craft-hideadmin/blob/master/README.md",
+        "issues": "https://github.com/jalendport/craft-hideadmin/issues"
     },
     "license": "MIT",
     "authors": [
+        {
+            "name": "Jalen Davenport",
+            "homepage": "https://jalendport.com"
+        },
         {
             "name": "Luke Youell",
             "homepage": "https://github.com/lukeyouell"
@@ -26,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-          "lukeyouell\\hideadmin\\": "src/"
+          "jalendport\\hideadmin\\": "src/"
         }
     },
     "extra": {
@@ -34,7 +38,7 @@
         "handle": "hide-admin",
         "hasCpSettings": false,
         "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/lukeyouell/craft-hideadmin/master/CHANGELOG.md",
-        "class": "lukeyouell\\hideadmin\\HideAdmin"
+        "changelogUrl": "https://raw.githubusercontent.com/jalendport/craft-hideadmin/master/CHANGELOG.md",
+        "class": "jalendport\\hideadmin\\HideAdmin"
     }
 }

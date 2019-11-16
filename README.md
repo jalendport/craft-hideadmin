@@ -23,7 +23,7 @@ To install the plugin, either install via the plugin store or follow these instr
 
 2. Then tell Composer to load the plugin:
 
-        composer require lukeyouell/craft-hideadmin
+        composer require jalendport/craft-hideadmin
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Hide Admin.
 
