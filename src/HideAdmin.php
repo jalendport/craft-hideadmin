@@ -4,11 +4,11 @@
  *
  * Hide admin accounts from non-admin accounts
  *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
+ * @link      https://github.com/jalendport
+ * @copyright Copyright (c) 2018 Jalen Davenport
  */
 
-namespace lukeyouell\hideadmin;
+namespace jalendport\hideadmin;
 
 use Craft;
 use craft\base\Element;
@@ -24,7 +24,7 @@ use yii\web\ForbiddenHttpException;
 /**
  * Class HideAdmin
  *
- * @author    Luke Youell
+ * @author    Jalen Davenport
  * @package   HideAdmin
  * @since     1.0.0
  *
