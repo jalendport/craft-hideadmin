@@ -44,42 +44,22 @@ class HideAdmin extends Plugin
             function(RegisterElementSourcesEvent $event) {
                 $currentUser = Craft::$app->getUser()->getIdentity();
 
-                if (!$currentUser->admin) {
-                    // Reset sources
-                    $event->sources = [];
+				if (!$currentUser->admin) {
+					// Remove "Admins" source
+					$event->sources = array_filter($event->sources, function($source) {
+						$isHeading = array_key_exists('heading', $source);
+						return $isHeading || ($source['key'] != 'admins');
+					});
 
-                    $groups = Craft::$app->getUserGroups()->getAllGroups();
-
-                    if (!empty($groups)) {
-                        $event->sources[] = ['heading' => Craft::t('app', 'Groups')];
-
-                        foreach ($groups as $group) {
-                            $event->sources[] = [
-                                'key' => 'group:'.$group->id,
-                                'label' => Craft::t('site', $group->name),
-                                'criteria' => ['groupId' => $group->id],
-                                'hasThumbs' => true
-                            ];
-                        }
-                    }
-                }
-            }
-        );
-
-        Event::on(
-            UsersController::class,
-            UsersController::EVENT_REGISTER_USER_ACTIONS,
-            function(RegisterUserActionsEvent $event) {
-                $currentUser = Craft::$app->getUser()->getIdentity();
-
-                if (!$currentUser->admin) {
-                    $user = $event->user;
-
-                    // If request involves an admin throw exception
-                    if($user->admin) {
-                        throw new ForbiddenHttpException("Your account doesn't have permission to perform this action.");
-                    }
-                }
+					// Remove admin users from all sources
+					foreach ($event->sources as $key => $source) {
+						$isHeading = array_key_exists('heading', $source);
+						if (!$isHeading)
+						{
+							$event->sources[$key]['criteria']['admin'] = false;
+						}
+					}
+				}
             }
         );
     }
