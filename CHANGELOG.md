@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0-beta.1 - 2023-06-08
+### Added
+- Initial Craft 4 release
+
 ## 1.2.0 - 2023-06-08
 ### Changed
 - Changed how the "Admins" source is hid to prevent the "All Users" source from being hid as well ([#11](https://github.com/jalendport/craft-hideadmin/issues/11))
