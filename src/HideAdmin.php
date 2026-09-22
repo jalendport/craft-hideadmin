@@ -13,19 +13,20 @@ namespace jalendport\hideadmin;
 use craft\base\conditions\BaseCondition;
 use craft\base\Element;
 use craft\base\Plugin;
+use craft\controllers\UsersController;
 use craft\elements\conditions\users\AdminConditionRule;
 use craft\elements\conditions\users\UserCondition;
-use craft\elements\db\ElementQuery;
-use craft\elements\db\UserQuery;
 use craft\elements\User;
 use craft\events\AuthorizationCheckEvent;
-use craft\events\CancelableEvent;
 use craft\events\RegisterConditionRuleTypesEvent;
 use craft\events\RegisterElementSourcesEvent;
 use craft\services\Elements;
 use craft\services\ElementSources;
+use craft\web\Controller;
 use jalendport\hideadmin\services\HiddenUsers;
+use yii\base\ActionEvent;
 use yii\base\Event;
+use yii\web\NotFoundHttpException;
 
 /**
  * @author    Jalen Davenport
@@ -70,7 +71,7 @@ class HideAdmin extends Plugin
         parent::init();
         self::$plugin = $this;
 
-        $this->_registerUserQueryFilter();
+        $this->_registerUsersControllerGuard();
         $this->_registerAuthorizationChecks();
         $this->_registerElementSources();
         $this->_registerConditionRules();
@@ -80,32 +81,30 @@ class HideAdmin extends Plugin
     // =========================================================================
 
     /**
-     * Excludes admin users from every user query made by a non-admin in the
-     * control panel. This is the primary access control: Craft 4’s users
-     * controller loads its target with `User::find()->id()->one()` and only
-     * checks the general “Edit users” permission, so filtering the query is what
-     * makes an admin’s edit screen return “not found” for a non-admin.
-     *
-     * `subQuery` is filtered (mirroring how core applies the `admin` param) with
-     * an additive `andWhere`, so a condition-builder `admin` value can’t
-     * override it. Front-end, GraphQL, console, and queue requests are left
-     * untouched by [[HiddenUsers::shouldFilter()]].
+     * Answers “not found” when a non-admin targets an admin user through any
+     * users controller action — the edit screen, save, delete, and the rest.
+     * Craft 4’s users controller loads its target by ID and only checks the
+     * general “Edit users” permission, so this is what closes the direct-URL
+     * hole.
      *
      * @return void
      */
-    private function _registerUserQueryFilter(): void
+    private function _registerUsersControllerGuard(): void
     {
         Event::on(
-            UserQuery::class,
-            ElementQuery::EVENT_BEFORE_PREPARE,
-            static function(CancelableEvent $event): void {
+            UsersController::class,
+            Controller::EVENT_BEFORE_ACTION,
+            static function(ActionEvent $event): void {
                 if (!self::$plugin->hiddenUsers->shouldFilter()) {
                     return;
                 }
 
-                /** @var UserQuery $query */
-                $query = $event->sender;
-                $query->subQuery?->andWhere(['not', ['users.admin' => true]]);
+                $target = self::$plugin->hiddenUsers->getRequestedUser();
+                $viewer = self::$plugin->hiddenUsers->getViewer();
+
+                if ($target !== null && $viewer !== null && self::$plugin->hiddenUsers->isHidden($target, $viewer)) {
+                    throw new NotFoundHttpException('User not found');
+                }
             }
         );
     }
@@ -114,7 +113,7 @@ class HideAdmin extends Plugin
      * Denies non-admins from viewing, saving, or deleting admin users through
      * any path that authorizes elements via the elements service (element
      * slideouts, the generic elements controller) — defense in depth alongside
-     * the query filter above.
+     * the users controller guard above.
      *
      * @return void
      */

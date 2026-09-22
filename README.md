@@ -8,13 +8,11 @@ Hide Admin hides admin users from non-admin users, which is useful if you want t
 
 For non-admin users in the control panel:
 
-- Admin users are excluded from the Users index and from user relation fields (Users fields, entry authors)
-- Admin users can't be viewed, edited, or deleted — including by navigating to an admin's edit screen directly
+- Admin users are hidden from the Users index, and the “Admins” source is removed from its sidebar
 - The “Admin” option is removed from the Users index filter
+- Admin users can’t be viewed, edited, or deleted — including by navigating to an admin’s edit screen directly
 
-Because admin users are filtered out of control-panel user queries, an entry authored by an admin will show a blank author to a non-admin — this is the same hiding at work, not a bug.
-
-Hiding is scoped to the control panel: front-end `craft.users` queries and GraphQL are not filtered. Complete, configurable hiding — per-group visibility rules and opt-in front-end enforcement — ships in [Silo](https://github.com/jalendport/craft-silo), the Craft 5 successor.
+Admin users still appear where content refers to them, such as an entry’s author or a Users field, so non-admins can keep editing that content.
 
 ## Requirements
 

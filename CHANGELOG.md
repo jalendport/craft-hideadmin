@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+### Changed
+- Admin users are shown to non-admins again as entry authors and in Users fields; hiding is limited to the Users index
+
+### Fixed
+- Fixed a bug where non-admins couldn’t view or save entries authored by an admin ([#13](https://github.com/jalendport/craft-hideadmin/issues/13))
+- Fixed a bug where admin users related in a Users field were dropped when a non-admin saved the element
+
 ## 2.0.0 - 2026-07-22 [CRITICAL]
 
 ### Changed

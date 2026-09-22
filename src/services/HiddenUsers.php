@@ -38,17 +38,53 @@ class HiddenUsers extends Component
      */
     public function shouldFilter(): bool
     {
+        $viewer = $this->getViewer();
+
+        return $viewer !== null && !$viewer->admin;
+    }
+
+    /**
+     * The logged-in user making the current control-panel web request, or
+     * null on console, front-end, and unauthenticated requests.
+     *
+     * @return User|null
+     */
+    public function getViewer(): ?User
+    {
         $request = Craft::$app->getRequest();
 
         if ($request->getIsConsoleRequest() || !$request->getIsCpRequest()) {
-            return false;
+            return null;
         }
 
         /** @var \craft\web\Application $app */
         $app = Craft::$app;
-        $identity = $app->getUser()->getIdentity();
 
-        return $identity !== null && !$identity->admin;
+        return $app->getUser()->getIdentity();
+    }
+
+    /**
+     * The user targeted by the current users controller request, resolved from
+     * the `userId` route param (the edit screen) or body param (save, delete,
+     * and the other actions). Null when the request doesn’t target a specific
+     * existing user, e.g. `myaccount`, registration, or login.
+     *
+     * @return User|null
+     */
+    public function getRequestedUser(): ?User
+    {
+        $request = Craft::$app->getRequest();
+        $routeParams = Craft::$app->getUrlManager()->getRouteParams() ?? [];
+        $userId = $routeParams['userId'] ?? $request->getBodyParam('userId') ?? $request->getQueryParam('userId');
+
+        if (!is_numeric($userId)) {
+            return null;
+        }
+
+        return User::find()
+            ->id((int)$userId)
+            ->status(null)
+            ->one();
     }
 
     /**
