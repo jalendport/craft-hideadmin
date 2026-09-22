@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## Unreleased
+## 2.0.1 - 2026-09-21
 
 ### Changed
 - Admin users are shown to non-admins again as entry authors and in Users fields; hiding is limited to the Users index
