@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Fixed a bug where non-admins couldn’t view or save entries authored by an admin ([#13](https://github.com/jalendport/craft-hideadmin/issues/13))
 - Fixed a bug where admin users related in a Users field were dropped when a non-admin saved the element
 
-## 2.0.0 - 2026-07-22 [CRITICAL]
+## 2.0.0 - 2026-07-22
 
 ### Changed
 - Hide Admin now requires Craft CMS 4.3.0 or later
@@ -22,8 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Fixed
 - Fixed a bug where a Users field limited to specific sources wouldn't let non-admins select any user ([#9](https://github.com/jalendport/craft-hideadmin/issues/9))
 - Fixed an error that could occur on GraphQL and console requests when no user was logged in ([#10](https://github.com/jalendport/craft-hideadmin/issues/10))
-
-### Security
 - Prevented non-admins from viewing, editing, or deleting admin users directly by their element ID — previously only the Users index was filtered
 - Excluded admin users from user relation fields and other control-panel user queries for non-admins
 
